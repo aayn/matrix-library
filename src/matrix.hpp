@@ -23,8 +23,26 @@ public:
     //! Constructor for an m x n matrix.
     matrix(size_type m, size_type n) { initialize(m, n); }
 
+    matrix(const matrix& m) { initialize(m.begin(), m.end()); }
+    matrix& operator=(const matrix& m);
+    ~matrix() { destroy(); }
+
+    T& operator()(size_type i, size_type j) {return this[i*num_rows + j]; }
+
+    iterator begin() { return data; }
+    const iterator begin() const { return data; }
+
+    iterator end() { return (data + num_rows * num_cols); } // TODO: might want to compute this only once
+    const_iterator end() const { return (data + num_rows * num_cols); }
+
+
 
 private:
+    iterator data; //! Index zero pointer
+    size_type num_rows, num_cols;
+
+    T& operator[](size_type i) {return *(data + i); }
+
     
 };
 
