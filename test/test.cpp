@@ -48,6 +48,5 @@ TEST_CASE("Verifying the constructors", "[matrix]") {
 }
 
 TEST_CASE("Testing matrix multiplication", "[matrix]") {
-    // matrix<int> m = {1, 2, 3};
     
 }
