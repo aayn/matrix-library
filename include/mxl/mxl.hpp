@@ -18,19 +18,21 @@
 #include <string>
 #include <vector>
 
-template <class T>
+template <typename T>
 class matrix {
 public:
     //! Define iterator for matrix.
     /*! Iterates element-by-element from the top-left element to the 
     bottom-right element. */
-    typedef typename std::vector<T>::iterator iterator;  
+    using iterator = typename std::vector<T>::iterator;  
     //! Same as the matrix iterator but is const.
-    typedef typename std::vector<T>::const_iterator const_iterator;
+    using const_iterator = typename std::vector<T>::const_iterator;
     //! Defines a size type for the given data type T.
-    typedef typename std::vector<T>::size_type size_type;
+    using size_type = typename std::vector<T>::size_type;
+    //! Defines a dimensions type as std::pair of size_types.
+    using dimensions = typename std::pair<size_type, size_type>;
     //! Defines the value_type as T.
-    typedef T value_type;
+    using value_type = T;
 
     //! Default constructor.
     matrix(): num_rows(0), num_cols(0), transpose_toggle(true) {}
@@ -43,7 +45,7 @@ public:
         \sa initialize(size_type, size_type, T)
     */
     matrix(size_type m, size_type n, T init_val=0): transpose_toggle(true)  { initialize(m, n, init_val); }
-    
+
     //! Constructor that reshapes an std::vector to create a matrix.
     /*!
         Note that the number of elements in the vector must equal m x n. If 
@@ -64,6 +66,8 @@ public:
     */
     matrix(const std::vector<std::vector<T>>& v, T fill_value=0): transpose_toggle(true) 
         { initialize(v, fill_value); }
+
+    
 
     //! Overloaded = operator.
     /*!
@@ -121,24 +125,39 @@ public:
         \param mat the matrix with the multiplication is done.
     */
     matrix<T> operator*(const matrix<T>& mat) {
-        if (!verify_size(mat)) {
-            std::string err = "Matrices with sizes (" + std::to_string(num_rows) + ", " +
-            std::to_string(num_cols) + ") and (" + std::to_string(mat.num_rows) + ", " + 
-            std::to_string(mat.num_cols) + ") cannot be multiplied.";
+        if (!check_shape_mult(mat)) {
+            std::string err = generate_error_message("multiplied");
             throw std::domain_error(err);
         }
-        matrix<T> out(num_rows, mat.num_cols);
+        // Number of columns in mat
+        size_type ncols = mat.shape().second;
+        matrix<T> out(num_rows, ncols);
 
         for (size_type i = 0; i != num_rows; ++i)
-            for (size_type j = 0; j != mat.num_cols; ++j)
+            for (size_type j = 0; j != ncols; ++j)
                 for (size_type k = 0; k != num_cols; ++k)
                     out(i, j) += (*this)(i, k) * mat(k, j);
         
         return out;        
     }
+
+    matrix<T> operator+(const matrix<T>& mat) {
+        if (!check_shape_add(mat)) {
+            std::string err = generate_error_message("added");
+            throw std::domain_error(err);
+        }
+
+        matrix<T> out(num_rows, num_cols);
+
+        for (size_type i = 0; i != num_rows; ++i)
+            for (size_type j = 0; j != num_cols; ++j)
+                out(i, j) = (*this)(i, j) + mat(i, j);
+        
+        return out;
+    }
     
     //! Returns the dimensions of the matrix as a std::pair.
-    std::pair<size_type, size_type> size() const {
+    dimensions shape() const {
         return std::make_pair(num_rows, num_cols);
     }
 
@@ -259,13 +278,37 @@ private:
         num_cols = n;
     }
 
-    //! TODO: What is this?
-    bool verify_size(const matrix<T>& mat) {
-        return (num_cols == mat.num_rows);
+    //! Checks if the matrix dimensions are appropriate for matrix
+    //! multiplication.
+    /*!
+        \param mat the matrix with the multiplication is done.
+    */
+    bool check_shape_mult (const matrix<T>& mat) {
+        return (num_cols == mat.shape().second);
     }
 
-    
-};
+    //! Checks if the matrix dimensions are appropriate for matrix
+    //! multiplication.
+    /*!
+        \param mat the matrix with the addition is done.
+    */
+    bool check_shape_add (const matrix<T>& mat) {
+        dimensions d = mat.shape();
+        return (d.first == mat.num_rows && d.second == mat.num_cols);
+    }
 
+    //! A convenience function for generating error messages.
+    /*!
+        \param operation the operation for which there was an error.
+    */
+    std::string generate_error_message(std::string operation, const matrix<T>& mat) {
+        
+        std::string err = "Matrices with sizes (" + std::to_string(num_rows) + ", " +
+            std::to_string(num_cols) + ") and (" + std::to_string(mat.shape().first) + ", " + 
+            std::to_string(mat.shape().second) + ") cannot be" + operation + ".";
+        return err;
+    }
+
+};
 
 #endif

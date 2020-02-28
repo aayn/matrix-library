@@ -8,17 +8,16 @@ int main() {
     vector<vector<int>> v = {{1, 2, 3}, {4, 5, 6}};
     matrix<int> mat(v);
     mat.display();
-    mat.gettt();
     mat.transpose();
     mat.display();
     mat.transpose();
     mat.display();
 
     matrix<int> mat2;
-    cout << mat2.size().first;
+    cout << mat2.shape().first;
 
-    matrix<int> m = {1, 2, 3};
-    m.display();
+    // matrix<int> m = {1, 2, 3};
+    // m.display();
     // matrix<int> mat1(10, 3, 1), mat2(3, 10, 1);
     // matrix<int> m;
     // m = mat2;
