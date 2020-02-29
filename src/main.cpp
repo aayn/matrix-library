@@ -3,18 +3,33 @@
 
 using namespace std;
 
-int main() {
-    // vector<int> v = {1, 2, 3, 4, 5, 6};
-    vector<vector<int>> v = {{1, 2, 3}, {4, 5, 6}};
-    matrix<int> mat(v);
-    mat.display();
-    mat.transpose();
-    mat.display();
-    mat.transpose();
-    mat.display();
 
-    matrix<int> mat2;
-    cout << mat2.shape().first;
+int main() {
+    mxl::matrix<int, 3, 4> mat1(7);
+    mat1.display();
+    vector<vector<int>> v1 = {{1, 2, 3, 4},
+                              {5, 6, 7, 8},
+                              {9, 10, 11, 12}};
+
+    mxl::matrix<int, 4, 3> mat2(v1);
+
+    (mat1 * mat2).display();
+
+    // mxl::square_matrix<double, 5> mat2(6.2832);
+    // mat2.display();
+
+    // mxl::matrix<int, 5, 5> mat;
+    // // mat = mxl::matrix<int, 5, 5>::I();
+    // mat.display();
+    // matrix<int> mat(v);
+    // mat.display();
+    // mat.transpose();
+    // mat.display();
+    // mat.transpose();
+    // mat.display();
+
+    // matrix<int> mat2;
+    // cout << mat2.shape().first;
 
     // matrix<int> m = {1, 2, 3};
     // m.display();
