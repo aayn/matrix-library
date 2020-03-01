@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
-#include "mxl.hpp"
+#include <mxl/naik_aayush.hpp>
 
 using namespace std;
 using mxl::matrix;
@@ -129,9 +129,6 @@ TEST_CASE("Testing matrix-matrix and matrix-scalar multiplication", "[matrix]") 
         mat3 *= mat2 * 10.0;
         mat3 *= 100.0;
 
-        cout << mat1.shape().first << mat1.shape().second << endl;
-        cout << mat3.shape().first << mat3.shape().second << endl;
-
         REQUIRE((mat3 == mat1) == true);
     }
 
@@ -150,5 +147,27 @@ TEST_CASE("Testing matrix-matrix and matrix-scalar multiplication", "[matrix]") 
         } catch (std::domain_error e) {
             REQUIRE(true);
         }
+    }
+}
+
+TEST_CASE("Testing transpose methods", "[matrix]") {
+    matrix<int> mat1 = {{1, 2, 3},
+                        {4, 5, 6},
+                        {7, 8, 9}};
+    matrix<int> mat2 = {{1, 4, 7},
+                        {2, 5, 8},
+                        {3, 6, 9}};
+    
+    SECTION("in-place transpose") {
+        mat1.transpose();
+        REQUIRE((mat1 == mat2) == true);
+        mat1.transpose();
+        mat2.transpose();
+        REQUIRE((mat1 == mat2) == true);
+    }
+
+    SECTION("transpose copy") {
+        REQUIRE((mat1.transpose_copy() == mat2) == true);
+        REQUIRE((mat1 == mat2.transpose_copy()) == true);
     }
 }

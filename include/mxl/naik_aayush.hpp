@@ -1,4 +1,4 @@
-/*! \mainpage The MLX Matrix library.
+/*! \mainpage The MXL Matrix library.
 
    This library is used to handle matrix operations. It can currently handle
    matrix multiplication and matrix transposing. Salient features include
@@ -195,6 +195,11 @@ namespace mxl {
             return *this;        
         }
 
+        //! Overloaded += operator for matrix addition.
+        /*!
+            Throws a std::domain_error if the matrices don't have appropriate sizes.
+            \param rhs the matrix with the addition is done.
+        */
         matrix<T>& operator+=(const matrix<T>& rhs) {
             if (!check_shape_add(rhs)) {
                 std::string err = generate_error_message("added", rhs);
