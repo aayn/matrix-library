@@ -3,6 +3,7 @@
 #include "mxl.hpp"
 
 using namespace std;
+using mxl::matrix;
 
 TEST_CASE("Verifying the constructors", "[matrix]") {
         
@@ -47,6 +48,36 @@ TEST_CASE("Verifying the constructors", "[matrix]") {
     }
 }
 
-TEST_CASE("Testing matrix multiplication", "[matrix]") {
-    
+TEST_CASE("Testing matrix-matrix and matrix-scalar multiplication", "[matrix]") {
+    matrix<double> mat1(3, 4, 7);
+    vector<vector<double>> v1 = {{1, 2, 3},
+                              {4, 5, 6},
+                              {7, 8, 9},
+                              {10, 11, 12}};
+    matrix<double> mat2(v1);
+    vector<vector<double>> result = {{154000, 182000, 210000},
+                                  {154000, 182000, 210000},
+                                  {154000, 182000, 210000}};
+    mat1 = 2.0 * mat1 * mat2 * 5.0;
+    mat1 += 99.0 * mat1;
+    SECTION("separate assignment and multiplication") {
+
+        for (size_t i = 0; i != mat1.shape().first; i++)
+            for (size_t j = 0; j != mat1.shape().second; j++)
+                REQUIRE(mat1(i, j) == result[i][j]);
+    }
+
+    matrix<double> mat3(3, 4, 7);
+
+    SECTION("combined assignment and multiplication") {
+        mat3 *= mat2 * 10.0;
+        mat3 *= 100.0;
+
+        cout << mat1.shape().first << mat1.shape().second << endl;
+        cout << mat3.shape().first << mat3.shape().second << endl;
+
+        REQUIRE((mat3 == mat1) == true);
+    }
+
+
 }
