@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.1)
 
 project("MXL Demo")
 
+set(CMAKE_CXX_STANDARD 11)
+
 # add_subdirectory(mxl)
 
-add_executable(demo src/main.cpp)
+add_executable(demo src/demo.cpp)
 
 include_directories(include include/mxl)
 
