@@ -1,5 +1,5 @@
 #include <iostream>
-#include <mxl/naik_aayush.hpp>
+#include <mxl/mxl.hpp>
 #include <random>
 
 using namespace std;

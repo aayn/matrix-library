@@ -3,12 +3,12 @@ Aayush Naik (anaik@eng.ucsd.edu)
 
 ## Summary
 
-A matrix library for the Brain Corp take-home coding challenge.
+A simple header-only matrix library.
 
 ## Build and Running Instructions
 
 The main header file, where the library is written, is
-[`include/mxl/naik_aayush.hpp`](include/mxl/naik_aayush.hpp). It is a
+[`include/mxl/mxl.hpp`](include/mxl/mxl.hpp). It is a
 single-header library, that you can just drop in to your project and use
 seamlessly. To see it in action (for building and running) it, do the following.
 
@@ -36,8 +36,9 @@ Some salient features of the MXL library are:
    `std::initializer_list`, 1-D and 2-D `std::vector`, and more, getting
    started right away is very easy with the MXL library.
 2. Extensively tested. With four large, nested test-cases and a total of 280
-   assertions, the functionality of the MXL library has been well-tested. The
-   tests can be found in [`test/test.cpp`](test/test.cpp).
+   assertions, the functionality of the MXL library has been well-tested and
+   the tests demonstrate correctness. The tests can be found in
+   [`test/test.cpp`](test/test.cpp).
 3. Intuitive operator-overloading. The `*`, `+`, `==` and other operators have
    been overloaded to provide and intuitive interface to operate with the
    matrices.

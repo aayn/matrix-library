@@ -10,5 +10,7 @@ include_directories(include include/mxl)
 
 add_executable(Test test/test.cpp)
 
+target_compile_options(Test PUBLIC -g)
+
 enable_testing()
 
