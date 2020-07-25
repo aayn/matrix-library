@@ -1,5 +1,4 @@
 # MXL: A Matrix Library
-Aayush Naik (anaik@eng.ucsd.edu)
 
 ## Summary
 
@@ -12,9 +11,9 @@ The main header file, where the library is written, is
 single-header library, that you can just drop in to your project and use
 seamlessly. To see it in action (for building and running) it, do the following.
 
-1. Enter the build directory: `cd build`
-2. Set up the makefiles: `cmake ..`
-3. Build the project: `make`
+1. Enter build directory: `cd build`
+2. Set up makefiles: `cmake ..`
+3. Build project: `make`
 4. Run the demo: `./Demo`. The source code for the demo file can be found at
    [`src/demo.cpp`](src/demo.cpp). The demo only gives a "feel for" what the
    library can do. See the documentation for more features.
@@ -24,9 +23,7 @@ seamlessly. To see it in action (for building and running) it, do the following.
 
 The library documentation can be found at
 [`docs/html/index.html`](docs/html/index.html). The main chunk of the
-documentation is under `mxl::matrix` (which is a link on the above page). This
-should be more than sufficient for the client's engineering staff's
-maintainability needs.
+documentation is under `mxl::matrix` (which is a link on the above page).
 
 ## Salient Features
 

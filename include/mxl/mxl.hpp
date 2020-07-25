@@ -12,8 +12,7 @@
      \ref mxl    
      \ref mxl::matrix
 */
-#ifndef GUARD_MATRIX_W_VECTOR_HPP
-#define GUARD_MATRIX_W_VECTOR_HPP
+#pragma once
 
 #include <algorithm>
 #include <cstddef>
@@ -505,4 +504,3 @@ namespace mxl {
     }
 
 }
-#endif
