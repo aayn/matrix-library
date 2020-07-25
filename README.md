@@ -1,7 +1,5 @@
 # MXL: A Matrix Library
 
-## Summary
-
 A simple header-only matrix library.
 
 ## Build and Running Instructions
