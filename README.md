@@ -11,7 +11,7 @@ The main header file, where the library is written, is
 single-header library, that you can just drop in to your project and use
 seamlessly. To see it in action (for building and running) it, do the following.
 
-1. Enter build directory: `cd build`
+1. Create and enter build directory: `mkdir build; cd build`
 2. Set up makefiles: `cmake ..`
 3. Build project: `make`
 4. Run the demo: `./Demo`. The source code for the demo file can be found at
@@ -21,7 +21,12 @@ seamlessly. To see it in action (for building and running) it, do the following.
 
 ## Documentation
 
-The library documentation can be found at
+To build the documentation:
+
+1. Go to the folder that has the header file and Doxyfile: `cd include/mxl`.
+2. Run Doxygen: `doxygen`.
+
+The library documentation can now be found at
 [`docs/html/index.html`](docs/html/index.html). The main chunk of the
 documentation is under `mxl::matrix` (which is a link on the above page).
 
